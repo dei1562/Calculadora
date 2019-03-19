@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     String operacion;
     String numero;
     Boolean flagPrimeraOperacion;
-    int resultado;
+    float resultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             case "x":
 
                 this.realizarOperacion();
-                operacion = "*";
+                operacion = "x";
                 numero = "";
                 cadena = cadena + boton;
                 break;
@@ -88,13 +88,22 @@ public class MainActivity extends AppCompatActivity {
                     operacion = "/";
                     numero = "";
                     cadena = cadena + boton;
+                } else {
+                    resultado = -1;
                 }
 
                 break;
             case "=":
 
                 this.realizarOperacion();
-                t1.setText("resultado " + String.valueOf(resultado));
+
+                if (resultado == -1) {
+                    t1.setText("");
+                    resultado = 0;
+                } else {
+                    t1.setText("Resultado: " + String.valueOf(resultado));
+                }
+
                 operacion = "";
                 numero = "";
                 break;
@@ -117,11 +126,11 @@ public class MainActivity extends AppCompatActivity {
     public void realizarOperacion(){
 
         if (flagPrimeraOperacion && !numero.isEmpty()) {
-            resultado = Integer.parseInt(numero);
+            resultado = Float.parseFloat(numero);
             flagPrimeraOperacion = false;
 
         } else if (!numero.isEmpty()){
-            int num = Integer.parseInt(numero);
+            float num = Float.parseFloat(numero);
             switch (operacion) {
                 case "+":
                     resultado = resultado + num;
